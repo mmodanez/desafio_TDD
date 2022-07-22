@@ -35,4 +35,26 @@ public class Armazem {
             throw new IllegalArgumentException("_Ingrediente não encontrado_");
         }
     }
+
+    public void adicionarQuantidadeDoIngredienteEmEstoque(Ingrediente ingrediente, Integer quantidade) {
+        if (estoque.containsKey(ingrediente) && quantidade > 0) {
+            int quantidadeNova = estoque.get(ingrediente) + quantidade;
+            estoque.put(ingrediente, quantidadeNova);
+        } else {
+            throw new IllegalArgumentException("_Ingrediente não encontrado ou quantidade inválida_");
+        }
+    }
+
+    public void reduzirQuantidadeDoIngredienteEmEstoque(Ingrediente ingrediente, Integer quantidade) {
+        if (estoque.containsKey(ingrediente)) {
+            if (estoque.get(ingrediente) >= quantidade && quantidade > 0) {
+                int quantidadeNova = estoque.get(ingrediente) - quantidade;
+                estoque.put(ingrediente, quantidadeNova);
+            }
+        } else {
+            throw new IllegalArgumentException("_Ingrediente não encontrado ou quantidade inválida_");
+        }
+    }
+
+
 }
