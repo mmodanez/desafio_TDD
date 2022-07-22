@@ -75,6 +75,7 @@ class TddApplicationTests {
         Topping novoTopping = new Topping(TipoTopping.Chocolate);
         int quantidade = 12;
         int quantidadeAReduzir = 2;
+        int quantidadeInvalida = -5;
 
         try {
             estoqueArmazem.cadastrarIngredienteEmEstoque(novoTopping);
@@ -82,8 +83,28 @@ class TddApplicationTests {
 
             estoqueArmazem.reduzirQuantidadeDoIngredienteEmEstoque(novoTopping, quantidadeAReduzir);
             assertEquals(true, estoqueArmazem.getEstoque().containsValue(quantidade - quantidadeAReduzir));
+
+            estoqueArmazem.reduzirQuantidadeDoIngredienteEmEstoque(novoTopping, quantidadeInvalida);
         } catch (IllegalArgumentException e) {
             assertEquals("_Ingrediente não encontrado ou quantidade inválida_", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_consultarQuantidadeDoIngredienteEmEstoque(){
+        Fruta novaFruta = new Fruta(TipoFruta.Abacate);
+        Base novaBase = new Base(TipoBase.Sorvete);
+
+        try {
+            estoqueArmazem.cadastrarIngredienteEmEstoque(novaFruta);
+            estoqueArmazem.adicionarQuantidadeDoIngredienteEmEstoque(novaFruta, 2);
+
+            estoqueArmazem.consultarQuantidadeDoIngredienteEmEstoque(novaFruta);
+            assertEquals(2, estoqueArmazem.getEstoque().get(novaFruta));
+
+            estoqueArmazem.consultarQuantidadeDoIngredienteEmEstoque(novaBase);
+        }catch (IllegalArgumentException e) {
+            assertEquals("_Ingrediente não encontrado_", e.getMessage());
         }
     }
 }

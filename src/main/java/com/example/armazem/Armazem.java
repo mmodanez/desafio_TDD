@@ -56,5 +56,15 @@ public class Armazem {
         }
     }
 
+    public Integer consultarQuantidadeDoIngredienteEmEstoque(Ingrediente ingrediente) {
+        int quantidade = 0;
+
+        if (estoque.containsKey(ingrediente)) {
+            quantidade = estoque.get(ingrediente);
+        }
+
+        return quantidade;
+    }
+
 
 }
